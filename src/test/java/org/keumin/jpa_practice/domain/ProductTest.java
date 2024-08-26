@@ -8,6 +8,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductTest {
@@ -38,24 +40,33 @@ public class ProductTest {
 
     @Test
     public void testCreateProduct() {
-        Product product = new Product();
-        product.setName("testPrd");
-        product.setPrice(30000);
-        product.setStock(10);
+        Product product1 = new Product();
+        product1.setName("testPrd1");
+        product1.setCode("prd01");
+        product1.setStock(10);
+
+        Product product2 = new Product();
+        product2.setName("testPrd2");
+        product2.setCode("prd02");
+        product2.setStock(10);
 
         Category category = new Category();
         category.setName("testCat");
         category.setCode("tc01");
 
-        em.persist(product);
+        em.persist(product1);
+        em.persist(product2);
         em.persist(category);
-        product.setCategory(category);
+        List<Product> products = category.getProducts();
+        products.add(product1);
+        products.add(product2);
 
         tx.commit();
 
-        Product retrivedProduct = em.find(Product.class, product.getId());
-        assertEquals(product.getName(), retrivedProduct.getName());
-        assertEquals(product.getPrice(), retrivedProduct.getPrice());
-        assertEquals(product.getStock(), retrivedProduct.getStock());
+        Category retrievedCategory = em.find(Category.class, category.getId());
+        List<Product> retrievedProducts = retrievedCategory.getProducts();
+        assertEquals(retrievedProducts.size(), 2);
+        assertEquals(retrievedProducts.get(0).getName(), product1.getName());
+        assertEquals(retrievedProducts.get(1).getName(), product2.getName());
     }
 }

@@ -3,21 +3,17 @@ package org.keumin.jpa_practice.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDateTime;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "prod_type", discriminatorType = DiscriminatorType.STRING)
 @Getter @Setter
-public class Product {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String code;
-    private Integer price;
+public class Product extends BaseEntity {
+    @Embedded
+    private Price price;
     private Integer stock;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 }
