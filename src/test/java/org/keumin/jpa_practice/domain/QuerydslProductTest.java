@@ -1,5 +1,7 @@
 package org.keumin.jpa_practice.domain;
 
+import com.querydsl.core.Tuple;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.*;
@@ -74,5 +76,23 @@ public class QuerydslProductTest {
         assertThat(products).hasSize(2);
         assertThat(products.get(0).getCode()).isEqualTo("prd01");
         assertThat(products.get(1).getCode()).isEqualTo("prd02");
+    }
+
+    @Test
+    public void testGetProductNameAndCategoryName() {
+        List<Tuple> info = queryFactory
+                .select(product.name,
+                        JPAExpressions
+                                .select(category.name)
+                                .from(category))
+                .where(category.id.eq(product.category.id))
+                .from(product)
+                .fetch();
+
+        assertThat(info).hasSize(2);
+        assertThat(info.get(0).get(0, String.class)).isEqualTo("testPrd1");
+        assertThat(info.get(0).get(1, String.class)).isEqualTo("testCat");
+        assertThat(info.get(1).get(0, String.class)).isEqualTo("testPrd2");
+        assertThat(info.get(1).get(1, String.class)).isEqualTo("testCat");
     }
 }
