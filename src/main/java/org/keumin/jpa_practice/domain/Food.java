@@ -15,7 +15,15 @@ public class Food {
     private int calories;
     private LocalDateTime expirationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @OneToOne
+    @JoinColumn(name = "gift_id")
+    private Gift gift;
 }

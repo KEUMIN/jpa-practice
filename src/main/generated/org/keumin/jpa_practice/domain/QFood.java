@@ -26,7 +26,11 @@ public class QFood extends EntityPathBase<Food> {
 
     public final QCategory category;
 
+    public final QCustomer customer;
+
     public final DateTimePath<java.time.LocalDateTime> expirationDate = createDateTime("expirationDate", java.time.LocalDateTime.class);
+
+    public final QGift gift;
 
     public final QFoodPrimaryKey pk;
 
@@ -49,6 +53,8 @@ public class QFood extends EntityPathBase<Food> {
     public QFood(Class<? extends Food> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.category = inits.isInitialized("category") ? new QCategory(forProperty("category")) : null;
+        this.customer = inits.isInitialized("customer") ? new QCustomer(forProperty("customer")) : null;
+        this.gift = inits.isInitialized("gift") ? new QGift(forProperty("gift")) : null;
         this.pk = inits.isInitialized("pk") ? new QFoodPrimaryKey(forProperty("pk")) : null;
     }
 

@@ -15,5 +15,5 @@ import java.util.List;
 @ToString
 public class Category extends BaseEntity {
     @OneToMany(mappedBy = "category")
-    private List<Food> foods = new ArrayList<>();
+    private List<Food> foods;
 }
