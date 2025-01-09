@@ -12,8 +12,4 @@ public class Product extends BaseEntity {
     @Embedded
     private Price price;
     private Integer stock;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
 }

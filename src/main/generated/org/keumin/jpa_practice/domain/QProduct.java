@@ -24,8 +24,6 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final QCategory category;
-
     //inherited
     public final StringPath code = _super.code;
 
@@ -63,7 +61,6 @@ public class QProduct extends EntityPathBase<Product> {
 
     public QProduct(Class<? extends Product> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.category = inits.isInitialized("category") ? new QCategory(forProperty("category")) : null;
         this.price = inits.isInitialized("price") ? new QPrice(forProperty("price")) : null;
     }
 

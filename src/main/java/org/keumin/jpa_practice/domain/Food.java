@@ -1,16 +1,21 @@
 package org.keumin.jpa_practice.domain;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
-@DiscriminatorValue("FOOD")
 @Getter @Setter
-public class Food extends BaseEntity {
+public class Food {
+    @EmbeddedId
+    private FoodPrimaryKey pk;
+
     private int calories;
     private LocalDateTime expirationDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

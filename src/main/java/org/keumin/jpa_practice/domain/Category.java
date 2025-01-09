@@ -14,6 +14,6 @@ import java.util.List;
 @Getter @Setter
 @ToString
 public class Category extends BaseEntity {
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Product> products = new ArrayList<>();
+    @OneToMany(mappedBy = "category")
+    private List<Food> foods = new ArrayList<>();
 }

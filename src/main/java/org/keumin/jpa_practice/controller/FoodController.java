@@ -14,27 +14,17 @@ public class FoodController {
     private final FoodService foodService;
 
     @GetMapping
-    public List<Food> getAllFoods() {
-        return foodService.getAllFood();
-    }
-
-    @GetMapping("/{id}")
-    public Food getFoodById(@PathVariable Long id) {
-        return foodService.getFoodById(id);
+    public List<Food> getAllFoods(@RequestParam String name) {
+        return foodService.getAllFood(name);
     }
 
     @PostMapping
-    public Food addFood(@RequestBody Food food) {
-        return foodService.createFood(food);
+    public Food addFood(@RequestBody FoodDto.Post post) {
+        return foodService.createFood(post);
     }
 
     @PutMapping
     public Food updateFood(@RequestBody Food food) {
         return foodService.updateFood(food);
-    }
-
-    @DeleteMapping
-    public void deleteFoodById(@PathVariable Long id) {
-        foodService.deleteFoodById(id);
     }
 }

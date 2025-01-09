@@ -28,13 +28,13 @@ public class QCategory extends EntityPathBase<Category> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
+    public final ListPath<Food, QFood> foods = this.<Food, QFood>createList("foods", Food.class, QFood.class, PathInits.DIRECT2);
+
     //inherited
     public final NumberPath<Long> id = _super.id;
 
     //inherited
     public final StringPath name = _super.name;
-
-    public final ListPath<Product, QProduct> products = this.<Product, QProduct>createList("products", Product.class, QProduct.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
